@@ -1,0 +1,141 @@
+/* General Page Styling */
+
+body {
+    background-color: #f4f8fb;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+
+/* Heading */
+
+h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+
+/* Container */
+
+.container {
+    background-color: white;
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 
+    rgba(0,0,0,0.1);
+}
+
+
+/* Buttons */
+
+.btn {
+    border-radius: 5px;
+    padding: 8px 15px;
+}
+
+
+.btn-primary {
+    background-color: #3498db;
+    border: none;
+}
+
+
+.btn-primary:hover {
+    background-color: #217dbb;
+}
+
+
+/* Table Styling */
+
+table {
+    background-color: white;
+    margin-top: 20px;
+}
+
+
+th {
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+}
+
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+/* Form Styling */
+
+form {
+
+    width: 450px;
+    margin: auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+
+    box-shadow: 0px 0px 10px
+    rgba(0,0,0,0.1);
+
+}
+
+
+input {
+
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+}
+
+
+input:focus {
+
+    outline: none;
+    border-color: #3498db;
+
+}
+
+
+/* Submit Button */
+
+button {
+
+    width: 100%;
+    background-color: #27ae60;
+    color: white;
+
+    padding: 10px;
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+
+}
+
+
+button:hover {
+
+    background-color: #1e8449;
+
+}
+
+
+/* Links */
+
+a {
+
+    text-decoration: none;
+    margin: 5px;
+
+}
