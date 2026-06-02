@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,flash
+from flask import Flask,render_template,request,redirect
 
 from models import db,Patient
 
@@ -9,17 +9,10 @@ from datetime import datetime
 import re
 
 
-
 app = Flask(__name__)
 app.secret_key = "health_prediction_secret"
-
-
-
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///health.db'
-
-
 db.init_app(app)
-
 
 
 with app.app_context():
@@ -27,13 +20,11 @@ with app.app_context():
     db.create_all()
 
 
-
 def valid_email(email):
 
     pattern=r'^[\w\.-]+@[\w\.-]+\.\w+$'
 
     return re.match(pattern,email)
-
 
 
 @app.route("/")
@@ -46,7 +37,6 @@ def index():
         "index.html",
         patients=patients
     )
-
 
 
 @app.route("/add",methods=['GET','POST'])
@@ -63,36 +53,45 @@ def add_patient():
 
         email=request.form['email']
 
+        if name.strip()=="":
+            return "Name cannot be empty"
+        
+        if not name.replace(" ","").isalpha():
+            return "Name must be alphabetic"
+        
+        if datetime.strptime(
+            dob,"%Y-%m-%d"
+        ).date()> datetime.today().date():
+            return "Date of Birth cannot be in the future"
+        
+        if not valid_email(email):
+            return"Please enter a valid Email Address"
+        
+        if(
+            request.form['glucose'].strip()=="" or
+            request.form['haemoglobin'].strip()=="" or
+            request.form['cholesterol'].strip()==""
+        ):
+            return "Please fill all blood test details"
+        
+
         try:
 
             glucose=float(request.form['glucose'])
         except ValueError:
-            return "value must be be a number"
+            return "glucose value must be a number"
         
         try:
 
             haemoglobin=float(request.form['haemoglobin'])
         except ValueError:
-            return "value must be a number" 
+            return "haemoglobin value must be a number" 
 
         try:   
 
             cholesterol=float(request.form['cholesterol'])
         except ValueError:
-            return "value must be a number"
-
-
-        if not valid_email(email):
-
-            return "Please enter a valid Email Address"
-
-
-
-        if datetime.strptime(
-            dob,"%Y-%m-%d"
-        ).date() > datetime.today().date():
-
-            return "DOB cannot be future"
+            return "cholesterol value must be a number"
 
 
 
@@ -101,8 +100,6 @@ def add_patient():
             haemoglobin,
             cholesterol
         )
-
-
 
         patient=Patient(
 
@@ -117,9 +114,7 @@ def add_patient():
 
 
         db.session.add(patient)
-
         db.session.commit()
-
 
         return redirect("/")
 
@@ -127,7 +122,6 @@ def add_patient():
     return render_template(
         "add_patient.html"
     )
-
 
 
 @app.route("/delete/<int:id>")
@@ -143,7 +137,6 @@ def delete(id):
     return redirect("/")
 
 
-
 @app.route("/update/<int:id>",
 methods=['GET','POST'])
 
@@ -151,9 +144,7 @@ def update(id):
 
     patient=Patient.query.get(id)
 
-
     if request.method=="POST":
-
 
         patient.full_name=request.form['name']
 
@@ -163,17 +154,13 @@ def update(id):
             request.form['glucose']
         )
 
-
         patient.haemoglobin=float(
             request.form['haemoglobin']
         )
 
-
         patient.cholesterol=float(
             request.form['cholesterol']
         )
-
-
 
         patient.remarks=predict_health(
 
@@ -182,18 +169,14 @@ def update(id):
             patient.cholesterol
         )
 
-
         db.session.commit()
 
-
         return redirect("/")
-
 
     return render_template(
         "update_patient.html",
         patient=patient
     )
-
 
 
 if __name__=="__main__":

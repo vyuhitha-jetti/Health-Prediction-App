@@ -1,40 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Update Patient</title>
-        <link rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}">
+<head>
+    <title>Update Patient</title>
 
-    </head>
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+</head>
 
-Name:
-<input name="name"
-value="{{patient.full_name}}">
+<body>
 
+<form method="POST">
 
-Email:
-<input name="email"
-value="{{patient.email}}">
+    Name:
+    <input name="name" value="{{ patient.full_name }}">
 
+    Email:
+    <input name="email" value="{{ patient.email }}">
 
-Glucose:
-<input name="glucose"
-value="{{patient.glucose}}">
+    Glucose:
+    <input name="glucose" value="{{ patient.glucose }}">
 
+    Haemoglobin:
+    <input name="haemoglobin" value="{{ patient.haemoglobin }}">
 
-Haemoglobin:
-<input name="haemoglobin"
-value="{{patient.haemoglobin}}">
+    Cholesterol:
+    <input name="cholesterol" value="{{ patient.cholesterol }}">
 
-
-Cholesterol:
-<input name="cholesterol"
-value="{{patient.cholesterol}}">
-
-
-<button>
-Update
-</button>
-
+    <button type="submit">
+        Update
+    </button>
 
 </form>
+
+</body>
+</html>
